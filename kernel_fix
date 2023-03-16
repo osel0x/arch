@@ -1,6 +1,10 @@
 Based on this article from fernandocejas.com
 https://linux.fernandocejas.com/docs/guides/mount-luks-partition-for-system-recovery
 
+#### List devices
+```shell
+lsblk -f
+```
 
 #### File system: btrfs
 
@@ -9,24 +13,12 @@ cryptsetup luksOpen /dev/nvme0n1p2 luks
 Enter passphrase for /dev/nvme0n1p2: 
 ```
 
-#### btrfs filesystem with subvolumes 
-
-```shell
-mount /dev/nvme0n1p2 /mnt/
-ls /mnt/
-ls /mnt/@
-ls /mnt/home
-
-@ -> root
-@home -> home
-```
-
 #### Perform chroot with btrfs subvolumes
 ```shell
-mount /dev/nvme0n1p2 /mnt/ -t btrfs -o subvol=@
-mount /dev/nvme0n1p2 /mnt/home -t btrfs -o subvol=@home
+mount /dev/mapper/luks /mnt/ -t btrfs -o subvol=@
+mount /dev/nmapper/luks /mnt/home -t btrfs -o subvol=@home
 mount /dev/nvme0n1p1 /mnt/boot
-chroot /mnt
+arch-chroot /mnt
 
 ls /mnt/
 ls /mnt/@

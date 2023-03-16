@@ -1,3 +1,7 @@
+Based on this article from fernandocejas.com
+https://linux.fernandocejas.com/docs/guides/mount-luks-partition-for-system-recovery
+
+
 #### File system: btrfs
 
 ```shell

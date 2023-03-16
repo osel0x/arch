@@ -1,0 +1,51 @@
+#### File system: btrfs
+
+```shell
+cryptsetup luksOpen /dev/nvme0n1p2 luks
+Enter passphrase for /dev/nvme0n1p2: 
+```
+
+#### btrfs filesystem with subvolumes 
+
+```shell
+mount /dev/nvme0n1p2 /mnt/
+ls /mnt/
+ls /mnt/@
+ls /mnt/home
+
+@ -> root
+@home -> home
+```
+
+#### Perform chroot with btrfs subvolumes
+```shell
+mount /dev/nvme0n1p2 /mnt/ -t btrfs -o subvol=@
+mount /dev/nvme0n1p2 /mnt/home -t btrfs -o subvol=@home
+mount /dev/nvme0n1p1 /mnt/boot
+chroot /mnt
+
+ls /mnt/
+ls /mnt/@
+ls /mnt/home
+```
+
+#### Fixing kernel
+```shell
+loadkeys la-latin1
+systemctl enable --now iwd.service
+systemctl enable --now systemd-netword.service
+systemctl enable --now systemd-resolved.service
+
+systemctl start iwd.service
+systemctl start systemd-netword.service
+systemctl start systemd-resolved.service
+```
+
+#### Internet connection with iwctl
+```shell
+iwctl 
+station list
+station <INTERFACE> scan
+station <INTERFACE> get-networks
+station <INTERFACE> connect "SSID" 
+```

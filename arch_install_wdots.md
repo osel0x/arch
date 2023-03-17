@@ -26,7 +26,7 @@ archinstall
 Additional packages
 
 ````shell
-git nano iwd
+git nano iwd gtk2
 ````
 ![img.png](images/installation/img.png)
 
@@ -34,7 +34,7 @@ Finish installation and enter chroot to enable iwctl
 
 ````shell
 systemctl enable --now iwd.service
-systemctl enable --now systemd-netword.service
+systemctl enable --now systemd-networkd.service
 systemctl enable --now systemd-resolved.service
 ````
 
